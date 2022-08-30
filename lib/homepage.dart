@@ -15,37 +15,65 @@ class _CalculatorPageState extends State<CalculatorPage> {
     double fullWidth = MediaQuery.of(context).size.width;
     return Scaffold(
         backgroundColor: DarkColors.dark,
-        body: SafeArea(
-          child: Column(
-            children: [
-              Flexible(
-                child: Container(
-                  decoration: BoxDecoration(),
-                  child: Column(
-                    children: [
-                      Center(
-                          child: Container(
-                              decoration: BoxDecoration(
-                                color: DarkColors.secdark,
+        body: Container(
+          decoration: BoxDecoration(color: DarkColors.dark),
+          child: SafeArea(
+            child: Column(
+              children: [
+                Flexible(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Container(
+                      decoration: BoxDecoration(),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Center(
+                              child: Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20),
+                                    color: DarkColors.secdark,
+                                  ),
+                                  child: DarkLightModeToggleButton())),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Text(
+                                '14 + 130',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 28,
+                                    fontWeight: FontWeight.w500),
                               ),
-                              child: DarkLightModeToggleButton()))
-                    ],
+                              Text(
+                                '144',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 54,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
+                    ),
                   ),
                 ),
-              ),
-              Flexible(
-                flex: 2,
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: DarkColors.secdark,
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Column(
-                    children: [],
+                Flexible(
+                  flex: 2,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.red,
+                    ),
+                    child: Column(
+                      children: [],
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ));
   }
@@ -81,6 +109,11 @@ class _DarkLightModeToggleButtonState extends State<DarkLightModeToggleButton> {
   Widget build(BuildContext context) {
     return ToggleButtons(
       isSelected: isSelected,
+      selectedColor: Colors.white,
+      fillColor: Colors.transparent,
+      splashColor: Colors.transparent,
+      borderColor: Colors.transparent,
+      selectedBorderColor: Colors.transparent,
       children: [Icon(Icons.light_mode), Icon(Icons.dark_mode_sharp)],
       onPressed: (int newIndex) {
         setState(() {
