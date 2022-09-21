@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
         title: 'Flutter Demo',
         theme: ThemeData(
           primarySwatch: Colors.blue,
-          fontFamily: 'Gilroy',
+          fontFamily: 'SFProDisplay',
         ),
         home: CalculatorPage());
   }

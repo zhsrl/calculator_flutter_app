@@ -11,13 +11,71 @@ class CalculatorPage extends StatefulWidget {
 }
 
 class _CalculatorPageState extends State<CalculatorPage> {
+  int? firstNum;
+  int? secondNum;
+  String history = '';
+  String textToDisplay = '';
+  String? result;
+  String? operation;
+
+  void buttonClick(String value) {
+    if (value == "AC") {
+      firstNum = 0;
+      secondNum = 0;
+      textToDisplay = '';
+      history = '';
+      result = '';
+    } else if (value == '%') {
+      firstNum = int.parse(textToDisplay);
+      result = (firstNum! * 0.01).toString();
+    } else if (value == '+' || value == '-' || value == '÷' || value == 'x') {
+      firstNum = int.parse(textToDisplay);
+      result = '';
+      operation = value;
+    } else if (value == '=') {
+      if (operation == '+') {
+        secondNum = int.parse(textToDisplay);
+        result = (firstNum! + secondNum!).toString();
+        history = firstNum!.toString() +
+            operation!.toString() +
+            secondNum!.toString();
+      }
+      if (operation == '-') {
+        secondNum = int.parse(textToDisplay);
+        result = (firstNum! - secondNum!).toString();
+        history = firstNum!.toString() +
+            operation!.toString() +
+            secondNum!.toString();
+      }
+      if (operation == 'x') {
+        secondNum = int.parse(textToDisplay);
+        result = (firstNum! * secondNum!).toString();
+        history = firstNum!.toString() +
+            operation!.toString() +
+            secondNum!.toString();
+      }
+      if (operation == '÷') {
+        secondNum = int.parse(textToDisplay);
+        result = (firstNum! / secondNum!).toString();
+        history = firstNum!.toString() +
+            operation!.toString() +
+            secondNum!.toString();
+      }
+    } else {
+      result = (textToDisplay + value).toString();
+    }
+
+    debugPrint(value);
+
+    setState(() {
+      textToDisplay = result!;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     double fullHeight = MediaQuery.of(context).size.height;
     double fullWidth = MediaQuery.of(context).size.width;
-
-    var userInput = "";
-    var result = "0";
 
     return Scaffold(
       body: Container(
@@ -45,17 +103,19 @@ class _CalculatorPageState extends State<CalculatorPage> {
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             Text(
-                              userInput,
+                              history,
                               style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 28,
-                                  fontWeight: FontWeight.w500),
+                                  wordSpacing: 4.0,
+                                  fontWeight: FontWeight.w400),
                             ),
                             Text(
-                              result,
+                              textToDisplay,
                               style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 54,
+                                  wordSpacing: 10.0,
                                   fontWeight: FontWeight.bold),
                             ),
                           ],
@@ -78,105 +138,145 @@ class _CalculatorPageState extends State<CalculatorPage> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Button(
-                              height: fullHeight / 10.5,
-                              width: fullWidth / 5,
-                              buttonText: 'AC'),
+                            height: fullHeight / 10.5,
+                            width: fullWidth / 5,
+                            buttonText: 'AC',
+                            callback: buttonClick,
+                          ),
                           Button(
-                              height: fullHeight / 10.5,
-                              width: fullWidth / 5,
-                              buttonText: '+/-'),
+                            height: fullHeight / 10.5,
+                            width: fullWidth / 5,
+                            buttonText: '+/-',
+                            callback: buttonClick,
+                          ),
                           Button(
-                              height: fullHeight / 10.5,
-                              width: fullWidth / 5,
-                              buttonText: '%'),
+                            height: fullHeight / 10.5,
+                            width: fullWidth / 5,
+                            buttonText: '%',
+                            callback: buttonClick,
+                          ),
                           Button(
-                              height: fullHeight / 10.5,
-                              width: fullWidth / 5,
-                              buttonText: '÷'),
+                            height: fullHeight / 10.5,
+                            width: fullWidth / 5,
+                            buttonText: '÷',
+                            callback: buttonClick,
+                          ),
                         ],
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Button(
-                              height: fullHeight / 10.5,
-                              width: fullWidth / 5,
-                              buttonText: '7'),
+                            height: fullHeight / 10.5,
+                            width: fullWidth / 5,
+                            buttonText: '7',
+                            callback: buttonClick,
+                          ),
                           Button(
-                              height: fullHeight / 10.5,
-                              width: fullWidth / 5,
-                              buttonText: '8'),
+                            height: fullHeight / 10.5,
+                            width: fullWidth / 5,
+                            buttonText: '8',
+                            callback: buttonClick,
+                          ),
                           Button(
-                              height: fullHeight / 10.5,
-                              width: fullWidth / 5,
-                              buttonText: '9'),
+                            height: fullHeight / 10.5,
+                            width: fullWidth / 5,
+                            buttonText: '9',
+                            callback: buttonClick,
+                          ),
                           Button(
-                              height: fullHeight / 10.5,
-                              width: fullWidth / 5,
-                              buttonText: 'x'),
+                            height: fullHeight / 10.5,
+                            width: fullWidth / 5,
+                            buttonText: 'x',
+                            callback: buttonClick,
+                          ),
                         ],
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Button(
-                              height: fullHeight / 10.5,
-                              width: fullWidth / 5,
-                              buttonText: '4'),
+                            height: fullHeight / 10.5,
+                            width: fullWidth / 5,
+                            buttonText: '4',
+                            callback: buttonClick,
+                          ),
                           Button(
-                              height: fullHeight / 10.5,
-                              width: fullWidth / 5,
-                              buttonText: '5'),
+                            height: fullHeight / 10.5,
+                            width: fullWidth / 5,
+                            buttonText: '5',
+                            callback: buttonClick,
+                          ),
                           Button(
-                              height: fullHeight / 10.5,
-                              width: fullWidth / 5,
-                              buttonText: '6'),
+                            height: fullHeight / 10.5,
+                            width: fullWidth / 5,
+                            buttonText: '6',
+                            callback: buttonClick,
+                          ),
                           Button(
-                              height: fullHeight / 10.5,
-                              width: fullWidth / 5,
-                              buttonText: '-'),
+                            height: fullHeight / 10.5,
+                            width: fullWidth / 5,
+                            buttonText: '-',
+                            callback: buttonClick,
+                          ),
                         ],
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Button(
-                              height: fullHeight / 10.5,
-                              width: fullWidth / 5,
-                              buttonText: '1'),
+                            height: fullHeight / 10.5,
+                            width: fullWidth / 5,
+                            buttonText: '1',
+                            callback: buttonClick,
+                          ),
                           Button(
-                              height: fullHeight / 10.5,
-                              width: fullWidth / 5,
-                              buttonText: '2'),
+                            height: fullHeight / 10.5,
+                            width: fullWidth / 5,
+                            buttonText: '2',
+                            callback: buttonClick,
+                          ),
                           Button(
-                              height: fullHeight / 10.5,
-                              width: fullWidth / 5,
-                              buttonText: '3'),
+                            height: fullHeight / 10.5,
+                            width: fullWidth / 5,
+                            buttonText: '3',
+                            callback: buttonClick,
+                          ),
                           Button(
-                              height: fullHeight / 10.5,
-                              width: fullWidth / 5,
-                              buttonText: '+'),
+                            height: fullHeight / 10.5,
+                            width: fullWidth / 5,
+                            buttonText: '+',
+                            callback: buttonClick,
+                          ),
                         ],
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Button(
-                              height: fullHeight / 10.5,
-                              width: fullWidth / 5,
-                              buttonText: 'R'),
+                            height: fullHeight / 10.5,
+                            width: fullWidth / 5,
+                            buttonText: 'R',
+                            callback: buttonClick,
+                          ),
                           Button(
-                              height: fullHeight / 10.5,
-                              width: fullWidth / 5,
-                              buttonText: '0'),
+                            height: fullHeight / 10.5,
+                            width: fullWidth / 5,
+                            buttonText: '0',
+                            callback: buttonClick,
+                          ),
                           Button(
-                              height: fullHeight / 10.5,
-                              width: fullWidth / 5,
-                              buttonText: '.'),
+                            height: fullHeight / 10.5,
+                            width: fullWidth / 5,
+                            buttonText: '.',
+                            callback: buttonClick,
+                          ),
                           Button(
-                              height: fullHeight / 10.5,
-                              width: fullWidth / 5,
-                              buttonText: '='),
+                            height: fullHeight / 10.5,
+                            width: fullWidth / 5,
+                            buttonText: '=',
+                            callback: buttonClick,
+                          ),
                         ],
                       ),
                     ],
