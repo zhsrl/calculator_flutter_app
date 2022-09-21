@@ -1,4 +1,6 @@
+import 'package:calculator_app/utils/calc_buttons.dart';
 import 'package:calculator_app/consts.dart';
+import 'package:calculator_app/utils/dark_light_toggle.dart';
 import 'package:flutter/material.dart';
 
 class CalculatorPage extends StatefulWidget {
@@ -13,119 +15,178 @@ class _CalculatorPageState extends State<CalculatorPage> {
   Widget build(BuildContext context) {
     double fullHeight = MediaQuery.of(context).size.height;
     double fullWidth = MediaQuery.of(context).size.width;
+
+    var userInput = "";
+    var result = "0";
+
     return Scaffold(
-        backgroundColor: DarkColors.dark,
-        body: Container(
-          decoration: BoxDecoration(color: DarkColors.dark),
-          child: SafeArea(
-            child: Column(
-              children: [
-                Flexible(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: Container(
-                      decoration: BoxDecoration(),
+      body: Container(
+        decoration: BoxDecoration(color: AppColor.ff22252d_dark),
+        child: SafeArea(
+          child: Column(
+            children: [
+              Flexible(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Container(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Center(
+                            child: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20),
+                                  color: AppColor.ff2a2d38dark,
+                                ),
+                                child: DarkLightModeToggleButton())),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Text(
+                              userInput,
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 28,
+                                  fontWeight: FontWeight.w500),
+                            ),
+                            Text(
+                              result,
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 54,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              Flexible(
+                flex: 2,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 20.0, vertical: 20.0),
+                  child: Container(
                       child: Column(
-                        mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
-                          Center(
-                              child: Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20),
-                                    color: DarkColors.secdark,
-                                  ),
-                                  child: DarkLightModeToggleButton())),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              Text(
-                                '14 + 130',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 28,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                              Text(
-                                '144',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 54,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ],
-                          )
+                          Button(
+                              height: fullHeight / 10.5,
+                              width: fullWidth / 5,
+                              buttonText: 'AC'),
+                          Button(
+                              height: fullHeight / 10.5,
+                              width: fullWidth / 5,
+                              buttonText: '+/-'),
+                          Button(
+                              height: fullHeight / 10.5,
+                              width: fullWidth / 5,
+                              buttonText: '%'),
+                          Button(
+                              height: fullHeight / 10.5,
+                              width: fullWidth / 5,
+                              buttonText: '÷'),
                         ],
                       ),
-                    ),
-                  ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Button(
+                              height: fullHeight / 10.5,
+                              width: fullWidth / 5,
+                              buttonText: '7'),
+                          Button(
+                              height: fullHeight / 10.5,
+                              width: fullWidth / 5,
+                              buttonText: '8'),
+                          Button(
+                              height: fullHeight / 10.5,
+                              width: fullWidth / 5,
+                              buttonText: '9'),
+                          Button(
+                              height: fullHeight / 10.5,
+                              width: fullWidth / 5,
+                              buttonText: 'x'),
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Button(
+                              height: fullHeight / 10.5,
+                              width: fullWidth / 5,
+                              buttonText: '4'),
+                          Button(
+                              height: fullHeight / 10.5,
+                              width: fullWidth / 5,
+                              buttonText: '5'),
+                          Button(
+                              height: fullHeight / 10.5,
+                              width: fullWidth / 5,
+                              buttonText: '6'),
+                          Button(
+                              height: fullHeight / 10.5,
+                              width: fullWidth / 5,
+                              buttonText: '-'),
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Button(
+                              height: fullHeight / 10.5,
+                              width: fullWidth / 5,
+                              buttonText: '1'),
+                          Button(
+                              height: fullHeight / 10.5,
+                              width: fullWidth / 5,
+                              buttonText: '2'),
+                          Button(
+                              height: fullHeight / 10.5,
+                              width: fullWidth / 5,
+                              buttonText: '3'),
+                          Button(
+                              height: fullHeight / 10.5,
+                              width: fullWidth / 5,
+                              buttonText: '+'),
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Button(
+                              height: fullHeight / 10.5,
+                              width: fullWidth / 5,
+                              buttonText: 'R'),
+                          Button(
+                              height: fullHeight / 10.5,
+                              width: fullWidth / 5,
+                              buttonText: '0'),
+                          Button(
+                              height: fullHeight / 10.5,
+                              width: fullWidth / 5,
+                              buttonText: '.'),
+                          Button(
+                              height: fullHeight / 10.5,
+                              width: fullWidth / 5,
+                              buttonText: '='),
+                        ],
+                      ),
+                    ],
+                  )),
                 ),
-                Flexible(
-                  flex: 2,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.red,
-                    ),
-                    child: Column(
-                      children: [],
-                    ),
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
-        ));
-  }
-}
-
-class CalcButtonsWidget extends StatelessWidget {
-  const CalcButtonsWidget({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Row(
-          children: [],
-        )
-      ],
-    );
-  }
-}
-
-class DarkLightModeToggleButton extends StatefulWidget {
-  DarkLightModeToggleButton({Key? key}) : super(key: key);
-
-  @override
-  State<DarkLightModeToggleButton> createState() =>
-      _DarkLightModeToggleButtonState();
-}
-
-class _DarkLightModeToggleButtonState extends State<DarkLightModeToggleButton> {
-  List<bool> isSelected = [false, true];
-
-  @override
-  Widget build(BuildContext context) {
-    return ToggleButtons(
-      isSelected: isSelected,
-      selectedColor: Colors.white,
-      fillColor: Colors.transparent,
-      splashColor: Colors.transparent,
-      borderColor: Colors.transparent,
-      selectedBorderColor: Colors.transparent,
-      children: [Icon(Icons.light_mode), Icon(Icons.dark_mode_sharp)],
-      onPressed: (int newIndex) {
-        setState(() {
-          for (int i = 0; i < isSelected.length; i++) {
-            if (i == newIndex) {
-              isSelected[i] = !isSelected[i];
-            } else {
-              isSelected[i] = false;
-            }
-          }
-        });
-      },
+        ),
+      ),
     );
   }
 }
