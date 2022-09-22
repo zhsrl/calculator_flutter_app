@@ -25,6 +25,8 @@ class _CalculatorPageState extends State<CalculatorPage> {
       textToDisplay = '';
       history = '';
       result = '';
+    } else if (value == 'R') {
+      result = textToDisplay.substring(0, textToDisplay.length - 1);
     } else if (value == '%') {
       firstNum = int.parse(textToDisplay);
       result = (firstNum! * 0.01).toString();
@@ -32,6 +34,16 @@ class _CalculatorPageState extends State<CalculatorPage> {
       firstNum = int.parse(textToDisplay);
       result = '';
       operation = value;
+    } else if (value == '+/-') {
+      if (textToDisplay[0] != '-') {
+        result = '-$textToDisplay';
+      } else {
+        result = textToDisplay.substring(1);
+      }
+    } else if (value == '.') {
+      firstNum = double.parse(textToDisplay) as int?;
+      secondNum = double.parse(textToDisplay) as int?;
+      result = (firstNum! + secondNum!).toString();
     } else if (value == '=') {
       if (operation == '+') {
         secondNum = int.parse(textToDisplay);
@@ -105,18 +117,25 @@ class _CalculatorPageState extends State<CalculatorPage> {
                             Text(
                               history,
                               style: TextStyle(
-                                  color: Colors.white,
+                                  color: AppColor.whiteTone,
                                   fontSize: 28,
+                                  letterSpacing: 3.0,
                                   wordSpacing: 4.0,
                                   fontWeight: FontWeight.w400),
                             ),
-                            Text(
-                              textToDisplay,
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 54,
-                                  wordSpacing: 10.0,
-                                  fontWeight: FontWeight.bold),
+                            Container(
+                              alignment: Alignment.centerRight,
+                              width: fullWidth,
+                              child: Text(
+                                textToDisplay,
+                                maxLines: 1,
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 54,
+                                    letterSpacing: 3.0,
+                                    wordSpacing: 10.0,
+                                    fontWeight: FontWeight.bold),
+                              ),
                             ),
                           ],
                         )
