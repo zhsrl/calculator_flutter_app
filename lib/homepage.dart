@@ -17,6 +17,7 @@ class _CalculatorPageState extends State<CalculatorPage> {
   String textToDisplay = '';
   String? result;
   String? operation;
+  bool forNewCalculation = false;
 
   void buttonClick(String value) {
     if (value == "AC") {
@@ -30,6 +31,7 @@ class _CalculatorPageState extends State<CalculatorPage> {
     } else if (value == '%') {
       firstNum = int.parse(textToDisplay);
       result = (firstNum! * 0.01).toString();
+      forNewCalculation = true;
     } else if (value == '+' || value == '-' || value == '÷' || value == 'x') {
       firstNum = int.parse(textToDisplay);
       result = '';
@@ -41,9 +43,6 @@ class _CalculatorPageState extends State<CalculatorPage> {
         result = textToDisplay.substring(1);
       }
     } else if (value == '.') {
-      firstNum = double.parse(textToDisplay) as int?;
-      secondNum = double.parse(textToDisplay) as int?;
-      result = (firstNum! + secondNum!).toString();
     } else if (value == '=') {
       if (operation == '+') {
         secondNum = int.parse(textToDisplay);
@@ -77,10 +76,24 @@ class _CalculatorPageState extends State<CalculatorPage> {
       result = (textToDisplay + value).toString();
     }
 
+    if (history != '' && value == '1' ||
+        value == '2' ||
+        value == '3' ||
+        value == '4' ||
+        value == '5' ||
+        value == '6' ||
+        value == '7' ||
+        value == '8' ||
+        value == '9' ||
+        value == '0') {
+      result = '';
+    }
+
     debugPrint(value);
 
     setState(() {
       textToDisplay = result!;
+      // ignore: unnecessary_null_comparison
     });
   }
 
@@ -167,6 +180,7 @@ class _CalculatorPageState extends State<CalculatorPage> {
                             width: fullWidth / 5,
                             buttonText: '+/-',
                             callback: buttonClick,
+                            pressed: true,
                           ),
                           Button(
                             height: fullHeight / 10.5,

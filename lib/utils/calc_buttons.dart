@@ -6,17 +6,23 @@ class Button extends StatelessWidget {
   final double height;
   final String buttonText;
   final Function? callback;
+  bool? pressed = false;
 
-  const Button({
+  Button({
     required this.height,
     required this.width,
     required this.buttonText,
     this.callback,
+    this.pressed,
   });
 
   @override
   Widget build(BuildContext context) {
     Color buttonTextColor = AppColor.white;
+
+    bool isPressed = false;
+
+    pressed = isPressed;
 
     if (buttonText == 'AC' || buttonText == '+/-' || buttonText == '%') {
       buttonTextColor = AppColor.green;
@@ -28,7 +34,11 @@ class Button extends StatelessWidget {
       buttonTextColor = AppColor.red;
     }
     return GestureDetector(
-      onTap: () => callback!(buttonText),
+      onTap: () {
+        callback!(buttonText);
+
+        isPressed = true;
+      },
       child: Container(
         width: width,
         height: height,

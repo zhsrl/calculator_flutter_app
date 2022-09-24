@@ -8,3 +8,5 @@ class AppColor {
   static const Color ff2a2d38dark = Color(0xFF2A2D38);
   static const Color red = Color(0xFFC86B6F);
 }
+
+class AppTheme {}
